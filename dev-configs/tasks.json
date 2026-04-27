@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "atlas: docker compose up",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "--env-file",
+                ".env",
+                "--env-file",
+                "mongo/.env",
+                "up",
+                "-d"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
