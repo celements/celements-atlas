@@ -12,6 +12,8 @@ import org.opencelements.atlas.application.model.exceptions.DocumentUpdateExcept
 import org.opencelements.atlas.application.ports.driving.DocumentCreateCommand;
 import org.opencelements.atlas.application.ports.driving.DocumentLoadCommand;
 import org.opencelements.atlas.application.ports.driving.DocumentUpdateCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,6 +36,8 @@ public class DocumentController {
   private final DocumentCreateCommand createCommand;
   private final DocumentUpdateCommand updateCommand;
   private final DrivingMapper mapper;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(DocumentController.class);
 
   @Inject
   public DocumentController(
@@ -77,6 +81,7 @@ public class DocumentController {
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public DocumentDto get(@PathVariable String id) throws DocumentNotFoundException {
+    LOGGER.debug("Getting document with id: {}", id);
     var doc = loadCommand.load(id);
     return mapper.toDocumentDto(doc);
   }
